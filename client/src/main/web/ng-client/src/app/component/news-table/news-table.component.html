@@ -1,0 +1,36 @@
+<div class="container-dataview">
+  <p-dataView #dv [value]="articles" [loading]="loading" [paginator]="true" [rows]="5" [paginatorPosition]="'both'" filterBy="title">
+    <p-header>
+      <div class="header">
+          <div class="dropdowns">
+            <p-dropdown [options]="countries" [(ngModel)]="country" (onChange)="onDropDownChange()"></p-dropdown>
+            <p-dropdown [options]="categories" [(ngModel)]="category" (onChange)="onDropDownChange()"></p-dropdown>
+          </div>
+          <input type="search" pInputText placeholder="Search by title" (keyup)="dv.filter($event.target.value)">
+      </div>
+    </p-header>
+    <ng-template let-article pTemplate="listItem">
+      <div class="article-section">
+        <div class="image">
+          <img [src]="article.imageUrl">
+        </div>
+        <div class="data">
+            <div class="section title">
+              <div><h3>{{article.title}}</h3></div>
+            </div>
+            <div class="section text-justify">
+              <div><p>{{article.description}}</p></div>
+            </div>
+            <div class="section author-date">
+              <div><small><b>{{article.author}}</b>&nbsp;&nbsp;&nbsp;Date: {{article.date}}</small></div>
+            </div>
+            <div class="section link">
+              <div><button type="button" class="btn btn-outline-primary" (click)="openLinkInNewTab(article.articleUrl)">{{article.sourceName}}</button></div>
+            </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="paginator" let-state>
+    </ng-template>
+  </p-dataView>
+</div>
